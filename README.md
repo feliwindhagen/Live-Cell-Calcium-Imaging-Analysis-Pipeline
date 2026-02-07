@@ -63,7 +63,7 @@ Therefore, the Fib pipeline does **not** rely on nucleus expansion alone. Instea
 
 The table below lists **all CellProfiler modules in execution order**, with explicit comparison between the NPC and Fib pipelines.
 
-| Module | NPC Pipeline | Fib Pipeline | Purpose and Rationale |
+| Module | NPC Pipeline | Fibroblast Pipeline | Purpose and Rationale |
 |------|-------------|--------------|-----------------------|
 | **CorrectIlluminationCalculate (Illum_mt)** | ✔ | ✔ | Generates an illumination correction image for the mitochondrial channel, capturing large-scale intensity variations caused by uneven illumination or optical artefacts. |
 | **CorrectIlluminationCalculate (Illum_GECI)** | ✔ | ✔ | Computes a channel-specific illumination correction for the cytosolic or ER GECI channel to preserve compartment-specific signal structure. |
@@ -73,7 +73,7 @@ The table below lists **all CellProfiler modules in execution order**, with expl
 | **IdentifyPrimaryObjects (CellBody / Reporter Channel)** | ✖ | ✔ | **Fib pipeline only.** Segments cellular regions directly from a reporter channel to capture extended fibroblast morphology that cannot be approximated by nucleus expansion. |
 | **IdentifySecondaryObjects (CellDisk)** | ✔ | ✖ | **NPC pipeline only.** Expands each nucleus by a fixed radius to generate a standardised whole-cell ROI (“CellDisk”), suitable for compact NPC morphology. |
 | **RelateObjects (Nuclei ↔ CellBody)** | ✖ | ✔ | **Fib pipeline only.** Relates reporter-defined cellular objects to their corresponding nuclei, enabling per-cell tracking and quantification. |
-| **IdentifyTertiaryObjects (CytoRing)** | ✔ | optional | Subtracts the nuclear region from the CellDisk to create a perinuclear cytoplasmic ROI (“CytoRing”). Used mainly in the NPC pipeline; less central for fibroblasts. |
+| **IdentifyTertiaryObjects (CytoRing)** | optional | ✔ | Subtracts the nuclear region from the CellDisk to create a perinuclear cytoplasmic ROI (“CytoRing”). Used mainly in the NPC pipeline; less central for fibroblasts. |
 | **TrackObjects (Nuclei)** | ✔ | ✔ | Tracks nuclei across consecutive frames to generate persistent TrackIDs. Associated cellular ROIs inherit tracking via nucleus linkage. |
 | **MeasureObjectIntensity** | ✔ | ✔ | Quantifies mean fluorescence intensity within defined ROIs for each tracked cell and time point. |
 | **FilterObjects (PositiveCells_mt)** | ✔ | ✔ | Removes cells with mitochondrial reporter intensities below a defined threshold, retaining reporter-positive cells only. |
