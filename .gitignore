@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Large imaging / raw data
+*.lif
+*.tif
+*.tiff
+
+# Analysis outputs (generated)
+data/
+outputs/
+results/
+_export*/
