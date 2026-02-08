@@ -119,6 +119,171 @@ These outputs are designed to be consumed directly by the Python analysis script
 
 ---
 
+## Preprocessing and batch execution (Fiji + CellProfiler)
+
+This repository provides optional helper scripts to standardize preprocessing
+and batch execution of CellProfiler pipelines. These scripts are recommended
+but not strictly required — experiments can also be prepared manually if
+preferred.
+
+Two alternative workflows are supported:
+
+- **Automated preprocessing and batch execution** (recommended)
+- **Manual preparation and naming**
+
+Both workflows produce CellProfiler outputs compatible with the Python analysis
+pipeline described below.
+
+---
+
+### Option A: Automated preprocessing (recommended)
+
+#### Export `.lif` files to per-experiment TIFF sequences (Fiji)
+
+Multi-series `.lif` files can be converted into individual experiment folders
+using the provided Fiji macro.
+
+Each series in the `.lif` file is exported as one experiment folder containing
+per-channel TIFF sequences.
+
+Script location:
+
+    scripts/export_lif_to_sequences.ijm
+
+##### Requirements
+- Fiji / ImageJ
+- Bio-Formats (included in Fiji)
+
+##### Headless usage (recommended)
+
+    /ImageJ.app/Contents/MacOS/ImageJ-macosx \
+      --headless \
+      -macro scripts/export_lif_to_sequences.ijm \
+      "input=/path/to/file.lif output=/path/to/output_root channels=3 prefix=Ex"
+
+##### Parameters
+- `input`   – path to the `.lif` file
+- `output`  – directory where experiment folders will be created
+- `channels` – number of channels to export (default: 3)
+- `prefix`  – prefix for experiment folders (default: Ex)
+
+##### Output structure
+
+    output_root/
+    ├── Ex1/
+    │   ├── C1-stack_Ex1/
+    │   ├── C2-stack_Ex1/
+    │   └── C3-stack_Ex1/
+    ├── Ex2/
+    │   └── ...
+    └── ...
+
+Each `Ex*` folder corresponds to one experiment and can be passed directly to
+CellProfiler.
+
+---
+
+#### Batch execution of CellProfiler pipelines
+
+Prepared experiment folders can be processed sequentially using the batch
+runner script.
+
+Script location:
+
+    scripts/run_cellprofiler_batch.sh
+
+##### Requirements
+- CellProfiler installed
+- A CellProfiler pipeline (`.cpproj` or `.cppipe`)
+
+##### Basic usage
+
+    chmod +x scripts/run_cellprofiler_batch.sh
+
+    ./scripts/run_cellprofiler_batch.sh \
+      --base "/path/to/experiment_folders" \
+      --pipeline "pipelines/projects/Ca2_Trigger_pipeline.cpproj" \
+      --out "/path/to/cellprofiler_outputs"
+
+##### Selecting which experiments to run
+
+Experiments are selected using a glob pattern applied to subfolders of `--base`.
+
+Common examples:
+
+    *_CaTrigger_*              # all CaTrigger experiments
+    *_mt_er_CaTrigger_*        # ER experiments only
+    *_mt_cyt_CaTrigger_*       # cytosolic experiments only
+    *_CaTrigger_NCRM1*         # single cell line
+
+Example:
+
+    ./scripts/run_cellprofiler_batch.sh \
+      --base "/path/to/experiment_folders" \
+      --pipeline "pipelines/projects/Ca2_Trigger_pipeline_Fib.cpproj" \
+      --out "/path/to/cellprofiler_outputs" \
+      --glob "*_CaTrigger_MDCi237*"
+
+##### Notes
+- Experiments are run **sequentially**, one at a time
+- Output folder names are **stable** (no timestamps by default)
+- Existing outputs are skipped automatically
+- The script is agnostic to cell type (NPC or fibroblast)
+
+---
+
+### Option B: Manual preparation (no scripts)
+
+Experiments can also be prepared manually without using the Fiji or batch
+scripts.
+
+#### Manual experiment folder requirements
+
+Each experiment must be stored in a **single folder** containing image files
+that CellProfiler can load and assign to channels via the `NamesAndTypes`
+module.
+
+Valid example structures include:
+
+    20250819_mt_er_CaTrigger_NCRM1/
+    ├── C1_0000.tif
+    ├── C1_0001.tif
+    ├── C2_0000.tif
+    ├── C2_0001.tif
+    ├── C3_0000.tif
+    └── C3_0001.tif
+
+or
+
+    20250819_mt_er_CaTrigger_NCRM1/
+    ├── C1/
+    │   ├── img_0000.tif
+    │   └── img_0001.tif
+    ├── C2/
+    │   └── ...
+    └── C3/
+        └── ...
+
+#### Important requirements
+- One folder corresponds to one experiment
+- Channel identity must be recoverable from file or folder names
+- Naming must match the `NamesAndTypes` rules in the CellProfiler pipeline
+
+Once prepared, experiments can be processed either manually in CellProfiler or
+via the batch script.
+
+---
+
+### Downstream compatibility
+
+All CellProfiler outputs generated using either workflow are compatible with
+the Python analysis pipeline, which expects:
+
+- one output folder per experiment
+- standard CellProfiler CSV outputs (`MyExpt_*.csv`)
+
+---
+
 ## Python analysis workflow (from CellProfiler outputs to final Ca²⁺ traces)
 
 This repository provides a modular Python analysis pipeline that processes **CellProfiler CSV outputs** from live-cell Ca²⁺ imaging experiments and converts them into **single-cell and population-level Ca²⁺ traces**, with optional photobleaching correction and standardized plotting.
