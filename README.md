@@ -474,12 +474,13 @@ Plotting is handled separately in `figures.py` and consumes the analysis outputs
 
 ## 6. Typical user workflow (summary)
 
-1. Run CellProfiler pipeline  
-2. Verify segmentation using overlay images  
-3. Export CellProfiler CSVs  
-4. Create or modify a YAML configuration file  
-5. Run `run_analysis.py`  
-6. Inspect plots and exported CSVs  
+1. Preprocessing of files in Fiji (naming + splitting to image series)
+2. Run CellProfiler pipeline  
+3. Verify segmentation using overlay images  
+4. Export CellProfiler CSVs  
+5. Create or modify a YAML configuration file  
+6. Run `run_analysis.py`  
+7. Inspect plots and exported CSVs  
 
 No Python code modification is required for standard analyses.
 
