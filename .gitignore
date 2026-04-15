@@ -9,7 +9,6 @@ __pycache__/
 
 # Large imaging / raw data
 *.lif
-*.tif
 *.tiff
 
 # Analysis outputs (generated)
