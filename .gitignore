@@ -17,3 +17,9 @@ data/
 outputs/
 results/
 _export*/
+
+demo/cellprofiler_outputs/
+demo/demo_outputs/
+.venv/
+__pycache__/
+*.pyc
