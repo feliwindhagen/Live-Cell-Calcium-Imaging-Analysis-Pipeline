@@ -304,8 +304,7 @@ At minimum, the following CSV files must be present:
 
 - `MyExpt_Nuclei.csv`  
 - ROI table (one of):
-  - `MyExpt_CytoRing.csv` (NPC default)
-  - `MyExpt_CellDisk.csv` (NPC alternative)
+  - `MyExpt_CellDisk.csv` (NPCs)
   - `MyExpt_CellOutline.csv` (Fibroblasts)
 - `MyExpt_PositiveCells_mt.csv`
 - `MyExpt_PositiveCells_other.csv`
