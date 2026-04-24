@@ -248,7 +248,7 @@ Valid example structure:
     20250819_mt_er_CaTrigger_NCRM1/
     ├── C1-stack/
     │   ├── C1-0000.tif
-    │   └── C2-0001.tif
+    │   └── C1-0001.tif
     ├── C2-stack/
     │   └── ...
     └── C3-stack/
