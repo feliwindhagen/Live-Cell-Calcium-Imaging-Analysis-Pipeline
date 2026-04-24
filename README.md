@@ -243,25 +243,15 @@ Each experiment must be stored in a **single folder** containing image files
 that CellProfiler can load and assign to channels via the `NamesAndTypes`
 module.
 
-Valid example structures include:
+Valid example structure:
 
     20250819_mt_er_CaTrigger_NCRM1/
-    ├── C1_0000.tif
-    ├── C1_0001.tif
-    ├── C2_0000.tif
-    ├── C2_0001.tif
-    ├── C3_0000.tif
-    └── C3_0001.tif
-
-or
-
-    20250819_mt_er_CaTrigger_NCRM1/
-    ├── C1/
-    │   ├── img_0000.tif
-    │   └── img_0001.tif
-    ├── C2/
+    ├── C1-stack/
+    │   ├── C1-0000.tif
+    │   └── C2-0001.tif
+    ├── C2-stack/
     │   └── ...
-    └── C3/
+    └── C3-stack/
         └── ...
 
 #### Important requirements
