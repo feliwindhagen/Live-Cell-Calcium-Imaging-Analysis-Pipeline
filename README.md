@@ -11,6 +11,18 @@ The pipeline is designed to be robust to heterogeneous reporter expression, clus
 
 ---
 
+## 6. Typical user workflow (summary)
+
+1. Preprocessing of files in Fiji (naming + splitting to image series)
+2. Run CellProfiler pipeline  
+3. Verify segmentation using overlay images  
+4. Export CellProfiler CSVs  
+5. Create or modify a YAML configuration file  
+6. Run `run_analysis.py`  
+7. Inspect plots and exported CSVs  
+
+---
+
 ## CellProfiler Analysis Pipelines
 
 This repository contains automated CellProfiler pipelines for segmentation, tracking, and fluorescence quantification in live-cell Ca²⁺ imaging experiments. Two related but distinct pipelines are provided:
@@ -408,9 +420,10 @@ For each experiment:
 7. **Optional photobleach correction**  
    If enabled, bleaching curves are fitted and applied to the normalized traces.
 
-8. **Aggregate results**  
-   - Mean ± SD across cells (per experiment)  
-   - Mean ± SD across experiments (per cell line)  
+8. **Aggregate results**
+   - Output CSV with relative fluorescences values for positive cells across all frames
+   - Visualisation: Mean ± SD across cells (per experiment)  
+   - Visualisation: Mean ± SD across experiments (per cell line)
 
 ---
 
@@ -460,20 +473,6 @@ The pipeline generates:
 Plotting is handled separately in `figures.py` and consumes the analysis outputs directly.
 
 ---
-
-## 6. Typical user workflow (summary)
-
-1. Preprocessing of files in Fiji (naming + splitting to image series)
-2. Run CellProfiler pipeline  
-3. Verify segmentation using overlay images  
-4. Export CellProfiler CSVs  
-5. Create or modify a YAML configuration file  
-6. Run `run_analysis.py`  
-7. Inspect plots and exported CSVs  
-
-No Python code modification is required for standard analyses.
-
---
 
 ## Requirements
 
