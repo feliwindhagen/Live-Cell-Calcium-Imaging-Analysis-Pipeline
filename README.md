@@ -346,7 +346,7 @@ Example (`config_mt_er.yaml`):
       roi_link_strategy: auto
 
     roi:
-      roi_csv: MyExpt_CytoRing.csv
+      roi_csv: MyExpt_CellDisk.csv
 
     photobleach:
       enabled: false
