@@ -136,7 +136,7 @@ pipeline described below.
 
 ---
 
-### Option A: Automated preprocessing (recommended)
+### Option A: Automated preprocessing
 
 #### Export `.lif` files to per-experiment TIFF sequences (Fiji)
 
@@ -183,7 +183,39 @@ CellProfiler.
 
 ---
 
-#### Batch execution of CellProfiler pipelines
+### Option B: Manual preparation (no scripts)
+
+Experiments can also be prepared manually without using the Fiji or batch
+scripts.
+
+#### Manual experiment folder requirements
+
+Each experiment must be stored in a **single folder** containing image files
+that CellProfiler can load and assign to channels via the `NamesAndTypes`
+module.
+
+Valid example structure:
+
+    20250819_mt_er_CaTrigger_NCRM1/
+    ├── C1-stack/
+    │   ├── C1-0000.tif
+    │   └── C1-0001.tif
+    ├── C2-stack/
+    │   └── ...
+    └── C3-stack/
+        └── ...
+
+#### Important requirements
+- One folder corresponds to one experiment
+- Channel identity must be recoverable from file or folder names
+- Naming must match the `NamesAndTypes` rules in the CellProfiler pipeline
+
+Once prepared, experiments can be processed either manually in CellProfiler or
+via the batch script.
+
+---
+
+### Batch execution of CellProfiler pipelines
 
 Prepared experiment folders can be processed sequentially using the batch
 runner script.
@@ -229,38 +261,6 @@ Example:
 - Output folder names are **stable** (no timestamps by default)
 - Existing outputs are skipped automatically
 - The script is agnostic to cell type (NPC or fibroblast)
-
----
-
-### Option B: Manual preparation (no scripts)
-
-Experiments can also be prepared manually without using the Fiji or batch
-scripts.
-
-#### Manual experiment folder requirements
-
-Each experiment must be stored in a **single folder** containing image files
-that CellProfiler can load and assign to channels via the `NamesAndTypes`
-module.
-
-Valid example structure:
-
-    20250819_mt_er_CaTrigger_NCRM1/
-    ├── C1-stack/
-    │   ├── C1-0000.tif
-    │   └── C1-0001.tif
-    ├── C2-stack/
-    │   └── ...
-    └── C3-stack/
-        └── ...
-
-#### Important requirements
-- One folder corresponds to one experiment
-- Channel identity must be recoverable from file or folder names
-- Naming must match the `NamesAndTypes` rules in the CellProfiler pipeline
-
-Once prepared, experiments can be processed either manually in CellProfiler or
-via the batch script.
 
 ---
 
