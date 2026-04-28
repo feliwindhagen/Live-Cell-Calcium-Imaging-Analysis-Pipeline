@@ -119,20 +119,14 @@ These outputs are designed to be consumed directly by the Python analysis script
 
 ---
 
-## Preprocessing and batch execution (Fiji + CellProfiler)
-
-This repository provides optional helper scripts to standardize preprocessing
-and batch execution of CellProfiler pipelines. These scripts are recommended
-but not strictly required — experiments can also be prepared manually if
-preferred.
+## Preprocessing (Fiji)
 
 Two alternative workflows are supported:
 
-- **Automated preprocessing and batch execution** (recommended)
+- **Automated preprocessing** 
 - **Manual preparation and naming**
 
-Both workflows produce CellProfiler outputs compatible with the Python analysis
-pipeline described below.
+Both workflows should produce the same output structure.
 
 ---
 
@@ -214,8 +208,14 @@ Once prepared, experiments can be processed either manually in CellProfiler or
 via the batch script.
 
 ---
+## Cell Profiler Pipeline
 
-### Batch execution of CellProfiler pipelines
+### Option A: Manual execution of CellProfiler pipelines
+
+Manually drag and drop experiments into the CellProfiler pipeline and click 
+"run analysis" to start the cell profiler analysis.
+
+### Option B: Batch execution of CellProfiler pipelines
 
 Prepared experiment folders can be processed sequentially using the batch
 runner script.
