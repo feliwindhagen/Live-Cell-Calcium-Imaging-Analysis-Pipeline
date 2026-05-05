@@ -17,7 +17,6 @@ The pipeline is designed to be robust to heterogeneous reporter expression, clus
 2. Run CellProfiler pipeline  
 3. Verify segmentation using overlay images  
 4. Export CellProfiler CSVs  
-5. Create or modify a YAML configuration file  
 6. Run `run_analysis.py`  
 7. Inspect plots and exported CSVs  
 
