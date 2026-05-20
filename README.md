@@ -108,6 +108,7 @@ The full toolkit for multi-experiment, multi-cell-line analyses:
 - **CellProfiler** ≥ 4.2 — [cellprofiler.org](https://cellprofiler.org)
 - **Python** ≥ 3.10 — numpy, pandas, matplotlib, scipy, pyyaml
 - **Fiji / ImageJ** — only needed for preprocessing `.lif` files (optional)
+- **Git LFS** — the demo images are stored with Git Large File Storage; run `git lfs install && git lfs pull` after cloning to download them
 
 ---
 

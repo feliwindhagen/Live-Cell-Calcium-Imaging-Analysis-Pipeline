@@ -5,6 +5,18 @@ Follow the steps below to go from raw microscopy images all the way to normalise
 
 ---
 
+> **Download the demo images first**
+> The TIFF stacks in `images/` are stored with Git Large File Storage (Git LFS).
+> After cloning the repository, run:
+> ```bash
+> git lfs install
+> git lfs pull
+> ```
+> If you skip this, the image files will appear as small text pointer files and CellProfiler will fail to open them.
+> You can skip this entirely and go straight to Step 3 — the pre-computed CellProfiler outputs are already included.
+
+---
+
 ## What's in here
 
 | Path | Contents |

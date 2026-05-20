@@ -36,20 +36,50 @@ pipeline/
 
 Converts a Leica `.lif` file into per-experiment folders of per-channel TIFF sequences, ready for CellProfiler.
 
+### Experiment folder naming convention
+
+Give each experiment folder a name in this format:
+
+```
+YYYYMMDD_<reporter1>_<reporter2>_CaTrigger_<CellLine>
+```
+
+Examples:
+```
+20250819_mt_er_CaTrigger_NCRM1
+20250924_mt_cyt_CaTrigger_MDCi237B
+```
+
+- `mt` = mitochondrial Ca²⁺ reporter (channel 1)
+- `er` or `cyt` = ER or cytosolic Ca²⁺ reporter (channel 2)
+- Channel 3 is always the Hoechst nuclear stain
+- The cell line name at the end is used to group experiments in the Python analysis
+
+This naming is a convention, not enforced by the scripts — but keeping it consistent makes the config file much easier to write later.
+
+### Option A — Automated (Fiji macro)
+
 ```bash
 /ImageJ.app/Contents/MacOS/ImageJ-macosx --headless \
   -macro pipeline/preprocessing/export_lif_to_sequences.ijm \
   "input=/path/to/file.lif output=/path/to/tiff_root channels=3 prefix=Ex"
 ```
 
-Output structure:
+### Option B — Manual (Fiji GUI)
+
+1. Open Fiji and drag your `.lif` file onto the toolbar — Bio-Formats will prompt you to choose a series (one series = one experiment/field of view)
+2. Open each series as a hyperstack
+3. Use **Image → Stacks → Stack to Images** to split channels, then **File → Save As → Image Sequence** to export each channel as a TIFF sequence
+4. Organise the exported folders to match the structure below
+
+Output structure either way:
 ```
 tiff_root/
-├── Ex1/
-│   ├── C1-stack_Ex1/
-│   ├── C2-stack_Ex1/
-│   └── C3-stack_Ex1/
-└── Ex2/ ...
+├── 20250819_mt_er_CaTrigger_NCRM1/
+│   ├── C1-stack/        ← mitochondrial channel TIFFs
+│   ├── C2-stack/        ← ER/cytosolic channel TIFFs
+│   └── C3-stack/        ← Hoechst channel TIFFs
+└── 20250820_mt_er_CaTrigger_NCRM1/ ...
 ```
 
 **Requirements:** Fiji / ImageJ with Bio-Formats (included in Fiji by default).
@@ -72,7 +102,7 @@ Use `quality_control_pipeline.cpproj` to generate overlay images for inspecting 
 
 **Requirements:** CellProfiler ≥ 4.2.
 
-### Running CellProfiler on many experiments at once
+### Option A — Automated (batch script)
 
 ```bash
 chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
@@ -85,6 +115,15 @@ chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
 
 The batch script runs experiments sequentially, skips folders that already have outputs, and accepts a `--glob` pattern to select a subset (e.g. `"*_mt_er_*"`).
 
+### Option B — Manual (CellProfiler GUI)
+
+1. Open CellProfiler and load the appropriate pipeline from `pipeline/cellprofiler/`
+2. Set **Default Input Folder** to your experiment's TIFF folder (e.g. `tiff_root/20250819_mt_er_CaTrigger_NCRM1/`)
+3. Set **Default Output Folder** to where you want the CSV results saved (e.g. `cellprofiler_outputs/20250819_mt_er_CaTrigger_NCRM1/`)
+4. Click **Analyze Images**
+
+Repeat for each experiment. The output folder name should match the experiment name — the Python analysis uses it to label results.
+
 ---
 
 ## Step 3 — Python analysis: traces, normalisation, and plots
@@ -96,7 +135,7 @@ cd pipeline/analysis/
 pip install -e .
 ```
 
-### Running the analysis
+### Option A — Config-driven CLI (recommended for multiple experiments)
 
 ```bash
 python pipeline/analysis/run_analysis.py \
@@ -104,9 +143,27 @@ python pipeline/analysis/run_analysis.py \
   --outdir results/
 ```
 
-### Configuration
-
 All settings live in a YAML file — no Python editing needed for standard use.
+
+### Option B — Manual (single experiment, edit the script directly)
+
+If you just want to analyse one experiment without setting up the config system, copy `demo/analyse.py` to your working directory and edit the parameters at the top:
+
+```python
+EXPERIMENT_DIR   = Path("/path/to/your/cellprofiler_outputs/experiment_folder")
+FRAME_INTERVAL_S = 5.0   # seconds between frames
+BASELINE_FRAMES  = 5     # frames before the stimulus
+ROI_CSV          = "MyExpt_CellDisk.csv"   # or CytoRing / CellOutline
+```
+
+Then run:
+```bash
+python analyse.py
+```
+
+This produces the same normalised trace CSVs and plots without any installation or config file.
+
+### Configuration (for Option A)
 Copy `configs/config_example.yaml` and edit:
 
 ```yaml
