@@ -40,6 +40,9 @@ BASELINE_FRAMES  = 5     # how many initial frames to use for F0
 # Which CellProfiler ROI table to use:
 #   NPC experiments  -> "MyExpt_CellDisk.csv"  or  "MyExpt_CytoRing.csv"
 #   Fibroblasts      -> "MyExpt_CellOutline.csv"
+# The "MyExpt_" prefix must match the Output filename prefix set in
+# CellProfiler's ExportToSpreadsheet module. If you changed it there,
+# update all four CSV names below to match.
 ROI_CSV       = "MyExpt_CellDisk.csv"
 NUCLEI_CSV    = "MyExpt_Nuclei.csv"
 POS_MT_CSV    = "MyExpt_PositiveCells_mt.csv"

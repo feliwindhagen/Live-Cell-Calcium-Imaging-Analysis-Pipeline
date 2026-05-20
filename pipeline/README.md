@@ -69,7 +69,7 @@ This naming is a convention, not enforced by the scripts — but keeping it cons
 
 1. Open Fiji and drag your `.lif` file onto the toolbar — Bio-Formats will prompt you to choose a series (one series = one experiment/field of view)
 2. Open each series as a hyperstack
-3. Use **Image → Stacks → Stack to Images** to split channels, then **File → Save As → Image Sequence** to export each channel as a TIFF sequence
+3. Use **Image → Color → Split Channels** to split the hyperstack into one window per channel, then for each channel window use **File → Save As → Image Sequence** to export the individual TIFFs
 4. Organise the exported folders to match the structure below
 
 Output structure either way:
@@ -171,7 +171,9 @@ python analyse.py
 This produces the same normalised trace CSVs and plots without any installation or config file.
 
 ### Configuration (for Option A)
-Copy `configs/config_example.yaml` and edit:
+Copy `configs/config_example.yaml` and edit.
+
+> **Note on the `MyExpt_` prefix:** The CSV filenames in the config (`MyExpt_CellDisk.csv`, `MyExpt_Nuclei.csv`, etc.) must match the **Output filename** prefix set in CellProfiler's ExportToSpreadsheet module. If you used a different prefix, update the `files:` section of your config to match.
 
 ```yaml
 base_dir: "/path/to/your/cellprofiler_outputs"

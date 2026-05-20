@@ -98,4 +98,6 @@ BASELINE_FRAMES  = 5      # frames before stimulus
 ROI_CSV          = "MyExpt_CellDisk.csv"   # or CytoRing / CellOutline
 ```
 
+> **Note on the `MyExpt_` prefix:** This prefix comes from the **Output filename** field in CellProfiler's ExportToSpreadsheet module. If you changed it when running your own pipeline (e.g. to `"Run1_"`), update all four CSV names in the parameters section of `analyse.py` to match.
+
 For multiple experiments, multiple cell lines, photobleaching correction, or fibroblast data, see the full pipeline in [`../pipeline/`](../pipeline/).

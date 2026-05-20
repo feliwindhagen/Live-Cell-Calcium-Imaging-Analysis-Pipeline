@@ -1,10 +1,15 @@
 # Example configuration for the Ca-trigger analysis (CellProfiler → Python)
 #
-# Copy this file and edit:
-# - mode
-# - experiment paths
-# - ROI CSV choice (CytoRing vs CellDisk vs CellOutline)
-# - photobleach settings (optional)
+# SECTIONS TO EDIT:
+#   - mode, title, ylim          (what kind of analysis and how to label/scale the plot)
+#   - base_dir + cell_lines      (paths to your CellProfiler output folders)
+#   - files > roi_csv            (which ROI type to use: CellDisk, CytoRing, or CellOutline)
+#   - analysis settings          (frame interval, baseline frames, track_rule)
+#
+# SECTIONS TO LEAVE UNCHANGED (unless your CellProfiler pipeline uses different names):
+#   - files > nuclei_csv / pos_mt_csv / pos_other_csv
+#   - columns                    (must match CellProfiler output column names)
+#   - exports                    (controls optional intermediate file exports)
 
 mode: cross_cell_lines
 title: "Ca-trigger comparison"
