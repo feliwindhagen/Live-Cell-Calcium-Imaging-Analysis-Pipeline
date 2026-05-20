@@ -10,14 +10,14 @@ For a quick-start example on one experiment, see [`../demo/`](../demo/) first.
 
 ```
 pipeline/
+├── preprocessing/                Helper scripts for image preparation
+│   ├── export_lif_to_sequences.ijm             Fiji macro: .lif → TIFF stacks
+│   └── run_cellprofiler_batch.sh               Batch-run CellProfiler on many experiments
+│
 ├── cellprofiler/                 CellProfiler pipelines
 │   ├── calcium_imaging_pipeline_NPC.cpproj    NPC / neural progenitor cells
 │   ├── calcium_imaging_pipeline_Fib.cpproj    Fibroblasts
 │   └── quality_control_pipeline.cpproj        QC overlays
-│
-├── preprocessing/                Optional helper scripts
-│   ├── export_lif_to_sequences.ijm             Fiji macro: .lif → TIFF stacks
-│   └── run_cellprofiler_batch.sh               Batch-run CellProfiler on many experiments
 │
 └── analysis/                     Python analysis package
     ├── src/ca_trigger/
@@ -32,30 +32,9 @@ pipeline/
 
 ---
 
-## CellProfiler pipelines
+## Step 1 — Preprocessing: export .lif to TIFF stacks
 
-Two analysis pipelines are provided for different cell types:
-
-| Pipeline | Cell type | ROI strategy |
-|---|---|---|
-| `calcium_imaging_pipeline_NPC.cpproj` | iPSC-derived neural progenitors | Nucleus expansion (CellDisk / CytoRing) |
-| `calcium_imaging_pipeline_Fib.cpproj` | Fibroblasts | Reporter-channel segmentation + RelateObjects |
-
-Both pipelines produce the same CSV output format and are compatible with the Python analysis.
-
-The `quality_control_pipeline.cpproj` saves overlay images for inspecting segmentation results.
-
-### CellProfiler requirements
-- CellProfiler ≥ 4.2
-- Input: TIFF stacks with channels named so that the NamesAndTypes module can assign them
-
----
-
-## Preprocessing scripts
-
-### Fiji macro — export .lif to TIFF stacks
-
-Converts a Leica `.lif` file into per-experiment folders of per-channel TIFF sequences.
+Converts a Leica `.lif` file into per-experiment folders of per-channel TIFF sequences, ready for CellProfiler.
 
 ```bash
 /ImageJ.app/Contents/MacOS/ImageJ-macosx --headless \
@@ -73,9 +52,27 @@ tiff_root/
 └── Ex2/ ...
 ```
 
-### Batch CellProfiler runner
+**Requirements:** Fiji / ImageJ with Bio-Formats (included in Fiji by default).
 
-Runs a CellProfiler pipeline on all matching experiment folders:
+---
+
+## Step 2 — CellProfiler: segmentation and tracking
+
+### Pipelines
+
+Two pipelines are provided for different cell types:
+
+| Pipeline | Cell type | ROI strategy |
+|---|---|---|
+| `calcium_imaging_pipeline_NPC.cpproj` | iPSC-derived neural progenitors | Nucleus expansion (CellDisk / CytoRing) |
+| `calcium_imaging_pipeline_Fib.cpproj` | Fibroblasts | Reporter-channel segmentation + RelateObjects |
+
+Both produce the same CSV output format and are compatible with the Python analysis.
+Use `quality_control_pipeline.cpproj` to generate overlay images for inspecting segmentation results.
+
+**Requirements:** CellProfiler ≥ 4.2.
+
+### Running CellProfiler on many experiments at once
 
 ```bash
 chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
@@ -86,9 +83,11 @@ chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
   --out "/path/to/cellprofiler_outputs"
 ```
 
+The batch script runs experiments sequentially, skips folders that already have outputs, and accepts a `--glob` pattern to select a subset (e.g. `"*_mt_er_*"`).
+
 ---
 
-## Python analysis
+## Step 3 — Python analysis: traces, normalisation, and plots
 
 ### Installation
 
@@ -96,8 +95,6 @@ chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
 cd pipeline/analysis/
 pip install -e .
 ```
-
-This installs the `ca_trigger` package and all dependencies.
 
 ### Running the analysis
 
@@ -109,7 +106,7 @@ python pipeline/analysis/run_analysis.py \
 
 ### Configuration
 
-All analysis settings live in a YAML file — no Python editing needed for standard use.
+All settings live in a YAML file — no Python editing needed for standard use.
 Copy `configs/config_example.yaml` and edit:
 
 ```yaml
@@ -143,7 +140,7 @@ analysis:
 
 ### Outputs
 
-For each experiment:
+Per experiment (saved into each CellProfiler output folder):
 - `<exp>__FF0_mt.csv` — normalised mitochondrial traces (rows = frames, columns = TrackIDs)
 - `<exp>__FF0_other.csv` — normalised other-channel traces
 
@@ -151,12 +148,3 @@ Figures saved to `--outdir`:
 - `cross_cell_lines_mt.png` / `cross_cell_lines_other.png` — mean ± SD per cell line
 - `single_experiment.png` (in single-experiment mode)
 - `photobleach_fit.png` (in photobleach-fit mode)
-
----
-
-## Python requirements
-
-- Python ≥ 3.10
-- numpy, pandas, matplotlib, scipy, pyyaml
-
-Install with: `pip install -e pipeline/analysis/`
