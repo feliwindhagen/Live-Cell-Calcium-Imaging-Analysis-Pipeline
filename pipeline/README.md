@@ -76,9 +76,16 @@ Output structure either way:
 ```
 tiff_root/
 ├── 20250819_mt_er_CaTrigger_NCRM1/
-│   ├── C1-stack/        ← mitochondrial channel TIFFs
-│   ├── C2-stack/        ← ER/cytosolic channel TIFFs
-│   └── C3-stack/        ← Hoechst channel TIFFs
+│   ├── C1-stack_Ex1/           ← mitochondrial channel
+│   │   ├── C1-stack0000.tif
+│   │   ├── C1-stack0001.tif
+│   │   └── ...
+│   ├── C2-stack_Ex1/           ← ER/cytosolic channel
+│   │   ├── C2-stack0000.tif
+│   │   └── ...
+│   └── C3-stack_Ex1/           ← Hoechst channel
+│       ├── C3-stack0000.tif
+│       └── ...
 └── 20250820_mt_er_CaTrigger_NCRM1/ ...
 ```
 
