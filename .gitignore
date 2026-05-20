@@ -7,18 +7,18 @@ __pycache__/
 .venv/
 .env
 
-# Large imaging / raw data
+# Large raw imaging files
 *.lif
 *.tiff
 
-# Analysis outputs (generated)
-data/
-outputs/
-results/
-_export*/
+# Generated analysis outputs (do not commit results, only expected_outputs)
+demo/outputs/
+pipeline/python/results/
+pipeline/python/outputs/
+_exports*/
 
-demo/cellprofiler_outputs/
+# CellProfiler intermediate outputs that get re-generated
+demo/cellprofiler_outputs/_exports*/
 demo/demo_outputs/
-.venv/
-__pycache__/
-*.pyc
+demo/outputs/
+pipeline/preprocessing/cellprofiler_outputs/
