@@ -30,7 +30,7 @@ pip install numpy pandas matplotlib
 Open **CellProfiler** (≥ 4.2) and load the pipeline:
 
 ```
-demo/cellprofiler_pipeline/Ca2_Trigger_pipeline_NPC.cpproj
+demo/cellprofiler_pipeline/calcium_imaging_pipeline_NPC.cpproj
 ```
 
 In CellProfiler, set:

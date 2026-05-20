@@ -7,7 +7,7 @@ Computational analysis tools for compartment-specific Ca²⁺ dynamics in live-c
 2. Run CellProfiler to segment nuclei, define ROIs, track cells, and filter for reporter-positive cells
 3. Run the Python analysis to extract single-cell intensity traces, normalise to F/F₀, and generate plots
 
-<img src="pipeline/pipeline_concept_7steps.png" width="900">
+<img src="pipeline/pipeline_overview.png" width="900">
 
 ---
 
@@ -50,7 +50,7 @@ The full toolkit for multi-experiment, multi-cell-line analyses:
 └── pipeline/                    Full analysis toolkit
     ├── cellprofiler/            NPC, fibroblast, and QC pipelines
     ├── preprocessing/           Fiji macro + batch CellProfiler runner
-    └── python/                  Installable Python package
+    └── analysis/                Installable Python package
         ├── src/ca_trigger/      analysis_core.py, figures.py
         ├── run_analysis.py      Config-driven CLI entry point
         ├── configs/             Example YAML configurations

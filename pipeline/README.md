@@ -11,15 +11,15 @@ For a quick-start example on one experiment, see [`../demo/`](../demo/) first.
 ```
 pipeline/
 ├── cellprofiler/                 CellProfiler pipelines
-│   ├── Ca2_Trigger_pipeline_NPC.cpproj    NPC / neural progenitor cells
-│   ├── Ca2_Trigger_pipeline_Fib.cpproj    Fibroblasts
-│   └── Quality_Control_Pipeline.cpproj   QC overlays
+│   ├── calcium_imaging_pipeline_NPC.cpproj    NPC / neural progenitor cells
+│   ├── calcium_imaging_pipeline_Fib.cpproj    Fibroblasts
+│   └── quality_control_pipeline.cpproj        QC overlays
 │
 ├── preprocessing/                Optional helper scripts
-│   ├── export_lif_to_sequences.ijm        Fiji macro: .lif → TIFF stacks
-│   └── run_cellprofiler_batch.sh          Batch-run CellProfiler on many experiments
+│   ├── export_lif_to_sequences.ijm             Fiji macro: .lif → TIFF stacks
+│   └── run_cellprofiler_batch.sh               Batch-run CellProfiler on many experiments
 │
-└── python/                       Python analysis package
+└── analysis/                     Python analysis package
     ├── src/ca_trigger/
     │   ├── analysis_core.py               Core analysis logic
     │   └── figures.py                     Plotting functions
@@ -38,12 +38,12 @@ Two analysis pipelines are provided for different cell types:
 
 | Pipeline | Cell type | ROI strategy |
 |---|---|---|
-| `Ca2_Trigger_pipeline_NPC.cpproj` | iPSC-derived neural progenitors | Nucleus expansion (CellDisk / CytoRing) |
-| `Ca2_Trigger_pipeline_Fib.cpproj` | Fibroblasts | Reporter-channel segmentation + RelateObjects |
+| `calcium_imaging_pipeline_NPC.cpproj` | iPSC-derived neural progenitors | Nucleus expansion (CellDisk / CytoRing) |
+| `calcium_imaging_pipeline_Fib.cpproj` | Fibroblasts | Reporter-channel segmentation + RelateObjects |
 
 Both pipelines produce the same CSV output format and are compatible with the Python analysis.
 
-The `Quality_Control_Pipeline.cpproj` saves overlay images for inspecting segmentation results.
+The `quality_control_pipeline.cpproj` saves overlay images for inspecting segmentation results.
 
 ### CellProfiler requirements
 - CellProfiler ≥ 4.2
@@ -82,7 +82,7 @@ chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
 
 ./pipeline/preprocessing/run_cellprofiler_batch.sh \
   --base "/path/to/tiff_root" \
-  --pipeline "pipeline/cellprofiler/Ca2_Trigger_pipeline_NPC.cpproj" \
+  --pipeline "pipeline/cellprofiler/calcium_imaging_pipeline_NPC.cpproj" \
   --out "/path/to/cellprofiler_outputs"
 ```
 
@@ -93,7 +93,7 @@ chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
 ### Installation
 
 ```bash
-cd pipeline/python/
+cd pipeline/analysis/
 pip install -e .
 ```
 
@@ -102,8 +102,8 @@ This installs the `ca_trigger` package and all dependencies.
 ### Running the analysis
 
 ```bash
-python pipeline/python/run_analysis.py \
-  --config pipeline/python/configs/config_example.yaml \
+python pipeline/analysis/run_analysis.py \
+  --config pipeline/analysis/configs/config_example.yaml \
   --outdir results/
 ```
 
@@ -159,4 +159,4 @@ Figures saved to `--outdir`:
 - Python ≥ 3.10
 - numpy, pandas, matplotlib, scipy, pyyaml
 
-Install with: `pip install -e pipeline/python/`
+Install with: `pip install -e pipeline/analysis/`

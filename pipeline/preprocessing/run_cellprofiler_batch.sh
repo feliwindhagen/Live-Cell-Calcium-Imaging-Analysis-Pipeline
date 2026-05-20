@@ -40,16 +40,16 @@ Optional arguments:
 
 Examples:
   NPC ER:
-    ./scripts/run_cellprofiler_batch.sh \
+    ./pipeline/preprocessing/run_cellprofiler_batch.sh \
       --base "/data/cellprofiler_inputs" \
-      --pipeline "pipelines/projects/Ca2_Trigger_pipeline.cpproj" \
+      --pipeline "pipeline/cellprofiler/calcium_imaging_pipeline_NPC.cpproj" \
       --out "/data/cellprofiler_outputs" \
       --glob "*_mt_er_CaTrigger_*"
 
   Fib:
-    ./scripts/run_cellprofiler_batch.sh \
+    ./pipeline/preprocessing/run_cellprofiler_batch.sh \
       --base "/data/cellprofiler_inputs" \
-      --pipeline "pipelines/projects/Ca2_Trigger_pipeline_Fib.cpproj" \
+      --pipeline "pipeline/cellprofiler/calcium_imaging_pipeline_Fib.cpproj" \
       --out "/data/cellprofiler_outputs"
 EOF
 }
