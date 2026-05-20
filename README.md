@@ -59,16 +59,9 @@ Two variants are provided because the two cell types require fundamentally diffe
 
 ### → [`demo/`](demo/)
 
-A self-contained example with real data. Two ways to use it:
+A self-contained example with real data. Run CellProfiler on the included raw TIFF images, then run the Python analysis — the complete workflow end-to-end. See [`demo/README.md`](demo/README.md) for step-by-step instructions.
 
-**Option A — Python only (fastest):** Pre-computed CellProfiler outputs are already included, so you can go straight to trace extraction:
-```bash
-cd demo/
-pip install numpy pandas matplotlib
-python analyse.py
-```
-
-**Option B — Full pipeline:** Run CellProfiler yourself on the included raw TIFF images, then run the Python analysis. This shows the complete workflow end-to-end. See [`demo/README.md`](demo/README.md) for step-by-step instructions.
+Pre-computed CellProfiler outputs are also included if you want to skip straight to the Python step.
 
 Start here to understand how the pipeline works before adapting it to your own data.
 
