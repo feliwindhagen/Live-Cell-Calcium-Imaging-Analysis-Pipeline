@@ -200,12 +200,20 @@ analysis:
 
 ### Key configurable options
 
-| Option | Values | Effect |
-|---|---|---|
-| `roi_csv` | `MyExpt_CellDisk.csv`, `MyExpt_CytoRing.csv`, `MyExpt_CellOutline.csv` | Which ROI type to use |
-| `track_rule` | `both_channels_any_time` / `either_channel_any_time` | Which cells to include |
-| `baseline_frames` | integer | How many pre-stimulus frames define F₀ |
-| `photobleach.enabled` | `true` / `false` | Apply bleaching correction after F/F₀ |
+**`roi_csv`** — which CellProfiler ROI table to use for intensity measurements:
+- `MyExpt_CellDisk.csv` — whole-cell area (nucleus expanded by a fixed radius); standard choice for NPC experiments
+- `MyExpt_CytoRing.csv` — cytoplasmic ring only (CellDisk minus the nucleus); use if you want to exclude nuclear signal
+- `MyExpt_CellOutline.csv` — full cell body segmented from the reporter channel; used for fibroblast experiments
+
+> The `MyExpt_` prefix must match the output filename you set in CellProfiler's ExportToSpreadsheet module. If you changed it there, update it here too.
+
+**`track_rule`** — which cells to keep for analysis:
+- `both_channels_any_time` — keep cells that are positive in **both** reporters at any point during the recording (recommended; ensures only double-positive cells are included)
+- `either_channel_any_time` — keep cells positive in **either** reporter at any point (more inclusive; use if you expect reporter expression to be asynchronous)
+
+**`baseline_frames`** — how many frames at the start of the recording were acquired **before** the Ca²⁺ stimulus was applied. These frames are averaged to calculate F₀ for each cell. Every trace is then divided by that cell's own F₀, so the pre-stimulus baseline sits at 1.0 and the response is expressed as a fold-change above baseline.
+
+**`photobleach.enabled`** — set to `true` to apply an exponential bleaching correction after F/F₀ normalisation. Only needed if you observe a gradual downward drift in traces from reporter-negative regions across the recording, indicating the fluorophore is photobleaching over time.
 
 ### Outputs
 
