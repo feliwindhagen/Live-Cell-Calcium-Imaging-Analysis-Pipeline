@@ -109,7 +109,19 @@ Use `quality_control_pipeline.cpproj` to generate overlay images for inspecting 
 
 **Requirements:** CellProfiler ≥ 4.2.
 
-### Option A — Automated (batch script)
+### Option A — Manual (CellProfiler GUI)
+
+1. Open CellProfiler and load the appropriate pipeline from `pipeline/cellprofiler/`
+2. Drag and drop your experiment's TIFF folder (e.g. `tiff_root/20250819_mt_er_CaTrigger_NCRM1/`) onto the file list, or set it as the **Default Input Folder**
+3. Open the **Names and Types** module and click **Update** — check that all three channels loaded correctly and are assigned to the right channel names
+4. Set **Default Output Folder** to where you want the CSV results saved (e.g. `cellprofiler_outputs/20250819_mt_er_CaTrigger_NCRM1/`)
+5. Click **Analyze Images**
+
+> **Important — file naming and sort order:** CellProfiler sorts images alphabetically to pair frames across channels. The naming must follow the pattern `C1-stack0000.tif`, `C2-stack0000.tif`, `C3-stack0000.tif`, `C1-stack0001.tif`, `C2-stack0001.tif`, `C3-stack0001.tif`, … so that frame 1 of all three channels is grouped together, frame 2 of all three channels is grouped together, and so on. If the zero-padded numbering is inconsistent or the prefixes differ, frames will be mismatched and the pipeline will produce wrong results.
+
+Repeat for each experiment. The output folder name should match the experiment name — the Python analysis uses it to label results.
+
+### Option B — Automated (batch script)
 
 ```bash
 chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
@@ -121,15 +133,6 @@ chmod +x pipeline/preprocessing/run_cellprofiler_batch.sh
 ```
 
 The batch script runs experiments sequentially, skips folders that already have outputs, and accepts a `--glob` pattern to select a subset (e.g. `"*_mt_er_*"`).
-
-### Option B — Manual (CellProfiler GUI)
-
-1. Open CellProfiler and load the appropriate pipeline from `pipeline/cellprofiler/`
-2. Set **Default Input Folder** to your experiment's TIFF folder (e.g. `tiff_root/20250819_mt_er_CaTrigger_NCRM1/`)
-3. Set **Default Output Folder** to where you want the CSV results saved (e.g. `cellprofiler_outputs/20250819_mt_er_CaTrigger_NCRM1/`)
-4. Click **Analyze Images**
-
-Repeat for each experiment. The output folder name should match the experiment name — the Python analysis uses it to label results.
 
 ---
 
