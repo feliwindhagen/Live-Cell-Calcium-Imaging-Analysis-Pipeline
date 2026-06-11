@@ -174,11 +174,10 @@ def save_plot(ff0_mt: pd.DataFrame, ff0_other: pd.DataFrame,
         (axes[0], ff0_mt,    "Mitochondria", "tab:orange"),
         (axes[1], ff0_other, "Cytosol",      "tab:blue"),
     ]:
-        mean = ff0.mean(axis=0).to_numpy()
-        std  = ff0.std(axis=0).to_numpy()
-        n    = len(ff0)
-        ax.plot(time_s, mean, color=color, linewidth=1.5)
-        ax.fill_between(time_s, mean - std, mean + std, alpha=0.25, color=color)
+        n = len(ff0)
+        # Plot each cell as a thin semi-transparent line
+        for _, trace in ff0.iterrows():
+            ax.plot(time_s, trace.to_numpy(), color=color, linewidth=0.6, alpha=0.3)
         ax.set_xlabel("Time (s)")
         ax.set_ylabel("F / F₀")
         ax.set_title(f"{label}  (n = {n} cells)")
