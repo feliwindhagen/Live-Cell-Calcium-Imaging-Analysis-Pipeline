@@ -1,6 +1,7 @@
-"""analysis_core.py
+"""core.py
 
-Refactored core analysis for Ca-trigger time-lapse experiments exported from CellProfiler.
+Core analysis logic for the Live Cell Calcium Imaging analysis pipeline:
+time-lapse experiments exported from CellProfiler.
 
 This keeps the *features* of the original monolithic script, but separates:
   1) configuration (YAML)  -> run_analysis.py

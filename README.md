@@ -1,4 +1,4 @@
-# Ca²⁺ Trigger Imaging Analysis Pipeline
+# Live Cell Calcium Imaging Analysis Pipeline
 
 Computational analysis tools for compartment-specific Ca²⁺ dynamics in live-cell time-lapse imaging experiments. The pipeline processes multi-channel fluorescence microscopy data through automated cell segmentation (CellProfiler) and Python-based signal extraction, normalisation, and plotting.
 
@@ -91,7 +91,7 @@ The full toolkit for multi-experiment, multi-cell-line analyses:
     ├── cellprofiler/            NPC, fibroblast, and QC pipelines
     ├── preprocessing/           Fiji macro + batch CellProfiler runner
     └── analysis/                Installable Python package
-        ├── src/ca_trigger/      analysis_core.py, figures.py
+        ├── src/analysis_core/   core.py, figures.py
         ├── run_analysis.py      Config-driven CLI entry point
         ├── configs/             Example YAML configurations
         └── pyproject.toml       pip-installable package

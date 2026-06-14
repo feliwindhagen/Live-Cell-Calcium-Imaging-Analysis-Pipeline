@@ -1,6 +1,6 @@
 """run_analysis.py
 
-Entry point for the refactored Ca-trigger analysis.
+Entry point for the Live Cell Calcium Imaging analysis pipeline.
 
 Usage
 -----
@@ -12,7 +12,7 @@ Supported modes (set in YAML)
 - cross_cell_lines
 - photobleach_fit
 
-This file is intentionally thin: it just loads config, calls analysis_core, and calls figures.py.
+This file is intentionally thin: it just loads config, calls analysis_core.core, and calls figures.py.
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ from typing import Any, Dict
 
 import yaml
 
-from ca_trigger.analysis_core import (
+from analysis_core.core import (
     AnalysisSettings,
     ColumnNames,
     ExperimentFiles,
@@ -33,7 +33,7 @@ from ca_trigger.analysis_core import (
     run_cell_line,
     run_photobleach_fit,
 )
-from ca_trigger.figures import plot_single_experiment, plot_cell_lines, plot_photobleach_fit
+from analysis_core.figures import plot_single_experiment, plot_cell_lines, plot_photobleach_fit
 
 def _expand_paths(config: dict) -> dict:
     """

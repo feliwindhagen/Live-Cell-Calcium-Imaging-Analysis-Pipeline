@@ -1,6 +1,6 @@
 # Full Analysis Pipeline
 
-This folder contains the complete toolkit for analysing multi-experiment, multi-cell-line Ca²⁺ trigger imaging data.
+This folder contains the complete toolkit for analysing multi-experiment, multi-cell-line Ca²⁺ imaging data.
 
 For a quick-start example on one experiment, see [`../demo/`](../demo/) first.
 
@@ -20,8 +20,8 @@ pipeline/
 │   └── quality_control_pipeline.cpproj        QC overlays
 │
 └── analysis/                     Python analysis package
-    ├── src/ca_trigger/
-    │   ├── analysis_core.py               Core analysis logic
+    ├── src/analysis_core/
+    │   ├── core.py                        Core analysis logic
     │   └── figures.py                     Plotting functions
     ├── run_analysis.py                    Entry point (config-driven CLI)
     ├── configs/

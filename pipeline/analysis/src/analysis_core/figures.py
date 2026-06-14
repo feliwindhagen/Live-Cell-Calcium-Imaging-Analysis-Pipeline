@@ -1,12 +1,12 @@
 """figures.py
 
-Plotting utilities for Ca-trigger analysis.
+Plotting utilities for the Live Cell Calcium Imaging analysis pipeline.
 
 - plot_single_experiment: mt + other for one experiment (mean ± SD across cells)
 - plot_cell_lines:        mt comparison and other comparison across cell lines (mean ± SD across experiments)
 - plot_photobleach_fit:   shows bleaching data and fitted curves
 
-This file only consumes dictionaries produced by analysis_core.py.
+This file only consumes dictionaries produced by core.py.
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ from typing import Dict, List, Optional, Tuple, Any
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ca_trigger.analysis_core import eval_bleach_curve
+from analysis_core.core import eval_bleach_curve
 
 
 def plot_single_experiment(res: Dict, title: str, ylim: Optional[Tuple[float, float]] = None) -> plt.Figure:

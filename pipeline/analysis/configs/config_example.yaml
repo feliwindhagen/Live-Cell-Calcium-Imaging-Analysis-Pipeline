@@ -1,4 +1,4 @@
-# Example configuration for the Ca-trigger analysis (CellProfiler → Python)
+# Example configuration for the Live Cell Calcium Imaging analysis pipeline (CellProfiler → Python)
 #
 # SECTIONS TO EDIT:
 #   - mode, title, ylim          (what kind of analysis and how to label/scale the plot)
@@ -12,7 +12,7 @@
 #   - exports                    (controls optional intermediate file exports)
 
 mode: cross_cell_lines
-title: "Ca-trigger comparison"
+title: "Calcium imaging comparison"
 ylim: [0.9, 2.5]
 
 # -------------------------
