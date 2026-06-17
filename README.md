@@ -7,7 +7,7 @@ Computational analysis tools for compartment-specific Ca²⁺ dynamics in live-c
 2. Run CellProfiler to segment nuclei, define ROIs, track cells, and filter for reporter-positive cells
 3. Run the Python analysis to extract single-cell intensity traces, normalise to F/F₀, and generate plots
 
-<img src="pipeline/Compartmentalized Calcium measurement in iPSC-derived neural progenitor cells.png" width="900">
+<img src="pipeline/Compartmentalized Calcium measurement in iPSC-derived neural progenitor cells.png" width="800">
 
 ---
 
