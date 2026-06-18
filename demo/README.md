@@ -44,7 +44,7 @@ pip install numpy pandas matplotlib
    ```
    demo/cellprofiler_pipeline/calcium_imaging_pipeline_NPC.cpproj
    ```
-3. Set **Default Input Folder** by clicking the folder icon and navigating to:
+3. Drag Demo Image Folder to "Drop files and folders here":
    ```
    <your-repo-folder>/demo/images/20251001_mt_cyt_Ex_NCRM1/
    ```
