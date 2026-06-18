@@ -39,17 +39,14 @@ pip install numpy pandas matplotlib
 
 ## Step 2 — Run CellProfiler (segmentation and tracking)
 
-Open **CellProfiler** (≥ 4.2) and load the pipeline:
-
-```
-demo/cellprofiler_pipeline/calcium_imaging_pipeline_NPC.cpproj
-```
-
-In CellProfiler, set:
-- **Default Input Folder** → `demo/images/20251001_mt_cyt_Ex_NCRM1/`
-- **Default Output Folder** → `demo/cellprofiler_outputs/20251001_mt_cyt_Ex_NCRM1/`
-
-Then click **Analyze Images**.
+1. Open the **CellProfiler** app (from Applications or Spotlight — do not run it from the terminal)
+2. Go to **File → Open Project** and select:
+   ```
+   demo/cellprofiler_pipeline/calcium_imaging_pipeline_NPC.cpproj
+   ```
+3. Set **Default Input Folder** → `demo/images/20251001_mt_cyt_Ex_NCRM1/`
+4. Set **Default Output Folder** → `demo/cellprofiler_outputs/20251001_mt_cyt_Ex_NCRM1/`
+5. Click **Analyze Images**
 
 CellProfiler will:
 1. Correct uneven illumination across the field of view
